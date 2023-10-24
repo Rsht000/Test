@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class СтрингБулдер {
     public static void main(String[] args) throws Exception {
+        System.out.println("Длина строки  не должна превышать 10 символов и числа не более 10  ");
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         if (input.contains("+")) {
@@ -40,14 +41,20 @@ public class СтрингБулдер {
         }
     }
 
-    public static void getResultPlus (String input  ){
+    public static void getResultPlus (String input  ) throws Exception {
         String[] data = input.split("\\+");
+        if (data[0].length()>13||data[1].length()>13){
+            throw new Exception("Длина строки не должна превышать 10 символов  ");
+        }
         removeQuotes(data);
         remove(data);
         invertedCommas(data[0] + data[1]);
     }
-    public static void getResultMinus (String input){
+    public static void getResultMinus (String input) throws Exception {
         String[] data = input.split("\" - \"");// Для примеров типа "Bye-Bye" - " "
+        if (data[0].length()>11||data[1].length()>11){
+            throw new Exception("Длина строки не должна превышать 10 символов  ");
+        }
         removeQuotes(data);
         int index = data[0].indexOf(data[1]);
         if (index == -1) {
@@ -64,18 +71,31 @@ public class СтрингБулдер {
         if (data[1].contains("\"")){
             throw new Exception("Строку нельзя делить или умножать на строку ");
         }
+        if (data[0].length()>13){
+            throw new Exception("Длина строки не должна превышать 10 символов  ");
+        }
         removeQuotes(data);
         remove(data);
         int multi = Integer.parseInt(data[1]);
+        if (multi>10){
+            throw new Exception(" Число не должно превышать 10 ");
+        }
         String result = "";
         for (int i = 0; i < multi; i++) {
             result += data[0];
+        }
+        if (result.length()>40){
+            result = result.substring(0,40);
+            result+="...";
         }
         invertedCommas(result);
         return result;
     }
     public static void getResultDivision (String input) throws Exception {
         String[] data = input.split("/");
+        if (data[0].length()>13){
+            throw new Exception("Длина строки не должна превышать 10 символов  ");
+        }
         removeQuotes(data);
         remove(data);
         if (data[1].contains("\"")){
@@ -84,6 +104,9 @@ public class СтрингБулдер {
         removeQuotes(data);
         remove(data);
         int multi = Integer.parseInt(data[1]);
+        if (multi>10){
+            throw new Exception(" Число не должно превышать 10 ");
+        }
         invertedCommas(data[0].substring(0, data[0].length() / multi));
 
 
